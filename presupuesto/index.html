@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presupuesto | Antonio Motorsport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="hoja">
+    <header class="encabezado">
+      <div>
+        <h1>Antonio Motorsport</h1>
+        <p class="sub">Mecánica general y hojalatería</p>
+      </div>
+      <div class="folio">
+        <span>Presupuesto</span>
+        <strong id="folio">—</strong>
+      </div>
+    </header>
+
+    <section class="datos">
+      <label>Cliente
+        <input id="cliente" type="text" placeholder="Nombre del cliente">
+      </label>
+      <label>Teléfono
+        <input id="telefono" type="tel" placeholder="998 000 0000">
+      </label>
+      <label>Vehículo
+        <input id="vehiculo" type="text" placeholder="Marca, modelo y año">
+      </label>
+      <label>Placas
+        <input id="placas" type="text" placeholder="Placas">
+      </label>
+      <label>Fecha
+        <input id="fecha" type="date">
+      </label>
+    </section>
+
+    <section class="trabajos">
+      <div class="fila cabecera" aria-hidden="true">
+        <span>Pieza</span>
+        <span>Costo pieza</span>
+        <span>Mano de obra</span>
+        <span>Material</span>
+        <span>Tiempo (hrs)</span>
+        <span>Subtotal</span>
+        <span></span>
+      </div>
+      <div id="filas"></div>
+      <button id="agregar" class="btn secundario" type="button">Agregar pieza o trabajo</button>
+    </section>
+
+    <section class="resumen">
+      <label class="iva">
+        <input id="conIva" type="checkbox">
+        Agregar IVA (16%)
+      </label>
+      <dl>
+        <div><dt>Piezas</dt><dd id="tPieza">$0.00</dd></div>
+        <div><dt>Mano de obra</dt><dd id="tMano">$0.00</dd></div>
+        <div><dt>Material</dt><dd id="tMaterial">$0.00</dd></div>
+        <div><dt>Subtotal</dt><dd id="tSubtotal">$0.00</dd></div>
+        <div id="filaIva" hidden><dt>IVA</dt><dd id="tIva">$0.00</dd></div>
+        <div class="total"><dt>Total</dt><dd id="tTotal">$0.00</dd></div>
+        <div class="tiempo"><dt>Tiempo estimado</dt><dd id="tTiempo">0 hrs</dd></div>
+      </dl>
+    </section>
+
+    <label class="notas">Notas
+      <textarea id="notas" rows="2" placeholder="Condiciones, garantía, vigencia del presupuesto..."></textarea>
+    </label>
+
+    <div class="acciones">
+      <button id="imprimir" class="btn" type="button">Imprimir o guardar PDF</button>
+      <button id="whatsapp" class="btn secundario" type="button">Enviar por WhatsApp</button>
+      <button id="nuevo" class="btn texto" type="button">Nuevo presupuesto</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

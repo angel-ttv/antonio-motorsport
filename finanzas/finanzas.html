@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finanzas | Antonio Motorsport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="finanzas.css">
+</head>
+<body>
+  <main class="pagina">
+
+    <header class="barra">
+      <div>
+        <h1>Antonio Motorsport</h1>
+        <p class="sub">Finanzas del taller</p>
+      </div>
+      <label class="periodo">Periodo
+        <select id="periodo"></select>
+      </label>
+    </header>
+
+    <!-- Resumen -->
+    <section class="kpis" aria-label="Resumen del periodo">
+      <article class="kpi">
+        <span class="kpi-etq">Entradas</span>
+        <strong id="kIngresos">$0.00</strong>
+      </article>
+      <article class="kpi">
+        <span class="kpi-etq">Gastos</span>
+        <strong id="kGastos">$0.00</strong>
+      </article>
+      <article class="kpi principal">
+        <span class="kpi-etq">Utilidad</span>
+        <strong id="kUtilidad">$0.00</strong>
+      </article>
+      <article class="kpi">
+        <span class="kpi-etq">Margen</span>
+        <strong id="kMargen">0%</strong>
+      </article>
+    </section>
+
+    <!-- Gráficas -->
+    <section class="graficas">
+      <article class="tarjeta ancha">
+        <h2>Entradas contra gastos, últimos 6 meses</h2>
+        <div class="leyenda">
+          <span><i class="pt ing"></i>Entradas</span>
+          <span><i class="pt gas"></i>Gastos</span>
+        </div>
+        <div id="gBarras"></div>
+      </article>
+
+      <article class="tarjeta">
+        <h2>En qué se va el dinero</h2>
+        <div id="gDona"></div>
+      </article>
+
+      <article class="tarjeta">
+        <h2>Entradas por área</h2>
+        <div id="gAreas"></div>
+      </article>
+    </section>
+
+    <!-- Registrar -->
+    <section class="tarjeta">
+      <h2 id="tituloForm">Registrar movimiento</h2>
+      <form id="form" autocomplete="off">
+        <div class="segmento" role="radiogroup" aria-label="Tipo de movimiento">
+          <label><input type="radio" name="tipo" value="ingreso" checked><span>Entrada</span></label>
+          <label><input type="radio" name="tipo" value="gasto"><span>Gasto</span></label>
+        </div>
+
+        <div class="campos">
+          <label>Fecha
+            <input id="fFecha" type="date" required>
+          </label>
+          <label class="doble">Concepto
+            <input id="fConcepto" type="text" placeholder="Ej. Cambio de balatas, Civic 2014" required>
+          </label>
+          <label>Categoría
+            <select id="fCategoria" required></select>
+          </label>
+          <label>Monto
+            <input id="fMonto" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required>
+          </label>
+          <label>Forma de pago
+            <select id="fPago">
+              <option>Efectivo</option>
+              <option>Transferencia</option>
+              <option>Tarjeta</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="acciones-form">
+          <button id="guardar" class="btn" type="submit">Guardar movimiento</button>
+          <button id="cancelar" class="btn texto" type="button" hidden>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Movimientos -->
+    <section class="tarjeta">
+      <div class="cab-tabla">
+        <h2>Movimientos</h2>
+        <div class="filtros">
+          <select id="filtroTipo" aria-label="Filtrar por tipo">
+            <option value="todos">Todos</option>
+            <option value="ingreso">Entradas</option>
+            <option value="gasto">Gastos</option>
+          </select>
+          <input id="buscar" type="search" placeholder="Buscar concepto" aria-label="Buscar concepto">
+        </div>
+      </div>
+
+      <div class="tabla" id="tabla">
+        <div class="mov cabecera" aria-hidden="true">
+          <span>Fecha</span><span>Concepto</span><span>Categoría</span><span>Pago</span><span class="der">Monto</span><span></span>
+        </div>
+        <div id="movs"></div>
+      </div>
+      <p id="vacio" class="vacio" hidden>No hay movimientos en este periodo. Registra el primero arriba.</p>
+    </section>
+
+    <footer class="pie">
+      <button id="exportar" class="btn secundario" type="button">Exportar a Excel (CSV)</button>
+      <button id="ejemplo" class="btn texto" type="button">Cargar datos de ejemplo</button>
+      <button id="borrar" class="btn texto peligro" type="button">Borrar todo</button>
+    </footer>
+  </main>
+
+  <script src="finanzas.js"></script>
+</body>
+</html>

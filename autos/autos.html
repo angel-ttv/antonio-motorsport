@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autos | Antonio Motorsport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="autos.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="barra">
+      <div>
+        <h1>Antonio Motorsport</h1>
+        <p class="sub">Autos, tiempos y mecánicos</p>
+      </div>
+      <div class="enlaces">
+        <a href="../presupuesto/index.html">Presupuestos</a>
+        <a href="../Finanzas/finanzas.html">Finanzas</a>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button data-v="tablero" class="on">Tablero</button>
+      <button data-v="entrada">Entrada de auto</button>
+      <button data-v="tiempos">Tiempos</button>
+      <button data-v="reportes">Reportes</button>
+      <button data-v="mecanicos">Mecánicos</button>
+    </nav>
+
+    <!-- Tablero -->
+    <section id="v-tablero" class="vista">
+      <div class="kpis" id="kpis"></div>
+      <article class="tarjeta">
+        <div class="cab-tabla">
+          <h2>Autos</h2>
+          <select id="filtro" aria-label="Filtrar por estado">
+            <option value="activos">En el taller</option>
+            <option value="atrasados">Atrasados</option>
+            <option value="entregados">Entregados</option>
+            <option value="todos">Todos</option>
+          </select>
+        </div>
+        <div id="lista"></div>
+        <p id="vacio" class="vacio" hidden>No hay autos aquí. Registra uno en "Entrada de auto".</p>
+      </article>
+    </section>
+
+    <!-- Entrada -->
+    <section id="v-entrada" class="vista" hidden>
+      <article class="tarjeta">
+        <h2 id="tituloForm">Entrada de auto</h2>
+        <form id="form" autocomplete="off">
+          <div class="campos">
+            <label>Placas <input id="fPlacas" type="text" required></label>
+            <label>Marca <input id="fMarca" type="text" required></label>
+            <label>Modelo <input id="fModelo" type="text" required></label>
+            <label>Año <input id="fAnio" type="number" min="1950" max="2100"></label>
+            <label>Color <input id="fColor" type="text"></label>
+            <label>Kilometraje <input id="fKm" type="number" min="0"></label>
+            <label>VIN (17 caracteres, en el cristal) <input id="fVin" type="text" maxlength="17" autocapitalize="characters"></label>
+            <label>Cliente <input id="fCliente" type="text" required></label>
+            <label>Teléfono <input id="fTel" type="tel"></label>
+            <label>Mecánico <select id="fMec"></select></label>
+            <label>Fecha de entrada <input id="fEntrada" type="date" required></label>
+            <label>Entrega prometida <input id="fPromesa" type="date" required></label>
+            <label>Estado <select id="fEstado"></select></label>
+            <label>Cobro al cliente <input id="fCobro" type="number" min="0" step="0.01"></label>
+            <label>Costo de piezas y material <input id="fRef" type="number" min="0" step="0.01"></label>
+            <label>Comisión del mecánico (%) <input id="fCom" type="number" min="0" max="100"></label>
+            <label class="doble">Trabajo a realizar <input id="fFalla" type="text"></label>
+            <label class="doble">Notas (daños, objetos en el auto) <input id="fNota" type="text"></label>
+          </div>
+          <div class="vin-acc">
+            <button id="buscarVin" class="btn secundario" type="button">Llenar datos con el VIN</button>
+            <span id="avisoVin" class="suave"></span>
+          </div>
+          <p id="historial" class="historial" hidden></p>
+          <div class="fotos">
+            <label>Fotos del auto (toma o elige varias)
+              <input id="fFotos" type="file" accept="image/*" multiple>
+            </label>
+            <div id="galeria" class="galeria"></div>
+          </div>
+          <div class="acciones-form">
+            <button class="btn" type="submit">Guardar auto</button>
+            <button id="cancelar" class="btn texto" type="button" hidden>Cancelar edición</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <!-- Tiempos -->
+    <section id="v-tiempos" class="vista" hidden>
+      <article class="tarjeta">
+        <h2>Diagrama de tiempos</h2>
+        <p class="sub">Cada barra va de la entrada a la entrega prometida. Roja = atrasado (llega hasta hoy). Línea azul = hoy.</p>
+        <div id="gantt"></div>
+      </article>
+    </section>
+
+    <!-- Reportes -->
+    <section id="v-reportes" class="vista" hidden>
+      <div class="kpis" id="kpisRep"></div>
+      <article class="tarjeta"><h2>Cuánto gana cada mecánico (este mes)</h2><div id="repMec"></div></article>
+      <article class="tarjeta"><h2>Reparto de la ganancia (este mes)</h2><div id="repReparto"></div></article>
+      <article class="tarjeta"><h2>Atrasados ahora</h2><div id="repAtr"></div></article>
+      <article class="tarjeta"><h2>Entradas y salidas</h2><div id="repBit"></div></article>
+    </section>
+
+    <!-- Mecánicos -->
+    <section id="v-mecanicos" class="vista" hidden>
+      <article class="tarjeta">
+        <h2>Mecánicos y comisión</h2>
+        <div id="listaMec"></div>
+        <form id="formMec" class="campos" autocomplete="off">
+          <label>Nombre <input id="mNombre" type="text" required></label>
+          <label>Área <input id="mArea" type="text"></label>
+          <label>Comisión (%) <input id="mCom" type="number" min="0" max="100" value="50" required></label>
+          <div class="acciones-form"><button class="btn" type="submit">Agregar mecánico</button></div>
+        </form>
+        <p class="sub">Gana el mecánico: (cobro − piezas y material) × su %. Lo que queda es del taller.</p>
+      </article>
+      <article class="tarjeta">
+        <h2>Reparto de la ganancia del taller</h2>
+        <p class="sub">Lo que queda después de piezas y comisiones de mecánicos se reparte así.</p>
+        <div class="campos">
+          <label>Dueño (papá) % <input id="rDueno" type="number" min="0" max="100"></label>
+          <label>Administración <strong id="rAdmin" class="valor"></strong></label>
+        </div>
+      </article>
+    </section>
+
+    <footer class="pie">
+      <button id="respaldo" class="btn secundario" type="button">Descargar respaldo</button>
+      <button id="restaurar" class="btn texto" type="button">Restaurar respaldo</button>
+      <input id="archivo" type="file" accept="application/json" hidden>
+    </footer>
+  </main>
+
+  <div id="visor" class="visor" hidden></div>
+  <script src="autos.js"></script>
+</body>
+</html>
